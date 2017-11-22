@@ -30,8 +30,8 @@
         <property name="filters" value="stat" />
         <property name="driverClassName" value="${driver}" />
         <property name="url" value="${paps_t_db_url}" />
-        <property name="username" value="mipay" />
-        <property name="password" value="xingdata" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
         <!-- 初始化连接数量 -->
         <property name="initialSize" value="${initialSize}" />
         <!-- 最小空闲连接数 -->
