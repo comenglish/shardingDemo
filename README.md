@@ -6,3 +6,7 @@
 
 
 请自行建库，创建表的脚本在src/main/resources/a_trace_his.sql中
+
+配置完成之后使用
+mvn jetty:run 
+即可运行
