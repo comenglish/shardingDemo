@@ -1,0 +1,363 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xiaomi.test</groupId>
+  <artifactId>shardingDemo</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>shardingDemo Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <latest.release.version>2.0.0.M2</latest.release.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <logback.version>1.2.3</logback.version>
+    <!-- Spring FrameWork -->
+    <spring.version>4.3.3.RELEASE</spring.version>
+    <spring-core.version>4.3.3.RELEASE</spring-core.version>
+    <spring-context.version>4.3.3.RELEASE</spring-context.version>
+    <spring-context-support.version>4.3.3.RELEASE</spring-context-support.version>
+    <spring-tx.version>4.3.3.RELEASE</spring-tx.version>
+    <spring-aop.version>4.3.3.RELEASE</spring-aop.version>
+    <spring-web.version>4.3.3.RELEASE</spring-web.version>
+    <spring-webmvc.version>4.3.3.RELEASE</spring-webmvc.version>
+    <spring-jdbc.version>4.3.3.RELEASE</spring-jdbc.version>
+    <spring-oxm.version>4.3.3.RELEASE</spring-oxm.version>
+    <spring-test.version>4.3.3.RELEASE</spring-test.version>
+    <spring-aspects.version>4.3.3.RELEASE</spring-aspects.version>
+    <spring-jms.version>4.3.3.RELEASE</spring-jms.version>
+    <spring-orm.version>4.3.3.RELEASE</spring-orm.version>
+    <spring-expression.version>4.3.3.RELEASE</spring-expression.version>
+    <spring-messaging.version>4.3.3.RELEASE</spring-messaging.version>
+    <spring-websocket.version>4.3.3.RELEASE</spring-websocket.version>
+    <!-- Mybatis -->
+    <mybatis.version>3.4.4</mybatis.version>
+    <mybatis-spring.version>1.3.0</mybatis-spring.version>
+    <mybatis.generator.version>1.3.2</mybatis.generator.version>
+    <!-- JavaEE -->
+    <javaee-api.version>7.0</javaee-api.version>
+    <javaee-web-api.version>7.0</javaee-web-api.version>
+    <!-- commons -->
+    <commons-email.version>1.4</commons-email.version>
+    <commons-fileupload.version>1.3.2</commons-fileupload.version>
+    <commons_lang_version>2.5</commons_lang_version>
+    <httpclient.version>4.5.2</httpclient.version>
+    <httpmime.version>4.5.2</httpmime.version>
+    <!-- logging -->
+    <slf4j-api.version>1.7.21</slf4j-api.version>
+    <slf4j.version>1.7.21</slf4j.version>
+    <!-- json -->
+    <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
+    <json-lib.version>2.4</json-lib.version>
+    <fastjson.version>1.2.19</fastjson.version>
+    <jackson-databind.version>2.8.4</jackson-databind.version>
+    <!-- database -->
+    <mysql-connector.version>5.1.40</mysql-connector.version>
+    <jedis.version>2.9.0</jedis.version>
+    <spring-data-redis.version>1.7.4.RELEASE</spring-data-redis.version>
+    <druid.version>1.0.25</druid.version>
+    <!-- other -->
+    <jstl.version>1.2</jstl.version>
+    <freemarker.version>2.3.23</freemarker.version>
+    <junit.version>4.12</junit.version>
+    <pagehelper.version>4.2.1</pagehelper.version>
+    <xmlbeans.version>2.3.0</xmlbeans.version>
+    <poi.version>3.9</poi.version>
+    <poi-ooxml.version>3.8</poi-ooxml.version>
+    <proxool.version>0.8.3</proxool.version>
+    <ognl.version>3.0</ognl.version>
+    <dom4j.version>1.6.1</dom4j.version>
+    <itext.version>2.1.7</itext.version>
+    <jfreechart.version>1.0.19</jfreechart.version>
+    <jta.version>1.1</jta.version>
+    <smslib.version>3.5.0</smslib.version>
+    <guava.version>19.0</guava.version>
+    <!-- shiro -->
+    <shiro-core.version>1.3.2</shiro-core.version>
+    <shiro-web.version>1.3.2</shiro-web.version>
+    <shiro-spring.version>1.3.2</shiro-spring.version>
+    <shiro-ehcache.version>1.3.2</shiro-ehcache.version>
+    <shiro-guice.version>1.3.2</shiro-guice.version>
+    <shiro-all.version>1.3.2</shiro-all.version>
+    <shiro-cas.version>1.3.2</shiro-cas.version>
+    <shiro-aspectj.version>1.3.2</shiro-aspectj.version>
+    <commons-collections.version>3.2.2</commons-collections.version>
+    <!-- commons -->
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+    <commons-codec.version>1.9</commons-codec.version>
+  </properties>
+  <dependencies>
+
+
+    <dependency>
+      <groupId>io.shardingjdbc</groupId>
+      <artifactId>sharding-jdbc-core</artifactId>
+      <version>${latest.release.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.shardingjdbc</groupId>
+      <artifactId>sharding-jdbc-spring-namespace</artifactId>
+      <version>${latest.release.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.shardingjdbc</groupId>
+      <artifactId>sharding-jdbc-orchestration-spring-namespace</artifactId>
+      <version>${latest.release.version}</version>
+    </dependency>
+
+    <!-- mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql-connector.version}</version>
+    </dependency>
+
+    <!-- ======================================= -->
+    <!-- spring core -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-core.version}</version>
+    </dependency>
+    <!-- Spring Context -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-context.version}</version>
+    </dependency>
+
+    <!-- spring-context-support -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring-context-support.version}</version>
+    </dependency>
+    <!-- Spring tx -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring-tx.version}</version>
+    </dependency>
+    <!-- spring-aop -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${spring-aop.version}</version>
+    </dependency>
+    <!-- spring-web -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring-web.version}</version>
+    </dependency>
+    <!-- Spring-Webmvc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring-webmvc.version}</version>
+    </dependency>
+
+
+    <!-- Spring-JDBC -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring-jdbc.version}</version>
+    </dependency>
+    <!-- spring-oxm -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
+      <version>${spring-oxm.version}</version>
+    </dependency>
+    <!-- spring-test -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring-test.version}</version>
+    </dependency>
+    <!-- spring-aspects -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>${spring-aspects.version}</version>
+    </dependency>
+    <!--spring-jms -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+      <version>${spring-jms.version}</version>
+    </dependency>
+    <!--spring-orm -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring-orm.version}</version>
+    </dependency>
+    <!--spring-expression -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${spring-expression.version}</version>
+    </dependency>
+    <!--spring-messaging -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>${spring-messaging.version}</version>
+    </dependency>
+    <!--spring-websocket -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+      <version>${spring-websocket.version}</version>
+    </dependency>
+    <!-- ======================================= -->
+    <!-- Mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+    <!-- mybatis-spring -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${mybatis-spring.version}</version>
+    </dependency>
+    <!-- mybatis-generator-core -->
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>${mybatis.generator.version}</version>
+    </dependency>
+    <!-- druid -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
+    </dependency>
+
+    <!--jackson-core  -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.8.4</version>
+    </dependency>
+    <!--jackson-core-asl-->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>1.9.13</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commons_lang_version}</version>
+    </dependency>
+    <!-- jackson-mapper-asl -->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jackson-mapper-asl.version}</version>
+    </dependency>
+    <!-- json-lib -->
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <version>${json-lib.version}</version>
+      <classifier>jdk15</classifier>
+    </dependency>
+    <!-- fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+
+
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <!-- 本地开发环境 -->
+      <id>dev</id>
+      <properties>
+        <profiles.active>dev</profiles.active>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+  </profiles>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <!--   描述存放资源的目录，该路径相对POM路径-->
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources/${profiles.active}</directory>
+      </resource>
+    </resources>
+  </build>
+
+
+</project>

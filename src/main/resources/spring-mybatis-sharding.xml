@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:sharding="http://shardingjdbc.io/schema/shardingjdbc/orchestration/sharding"
+       xmlns:reg="http://shardingjdbc.io/schema/shardingjdbc/orchestration/reg"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                         http://shardingjdbc.io/schema/shardingjdbc/orchestration/sharding 
+                        http://shardingjdbc.io/schema/shardingjdbc/orchestration/sharding/sharding.xsd 
+                        http://shardingjdbc.io/schema/shardingjdbc/orchestration/reg 
+                        http://shardingjdbc.io/schema/shardingjdbc/orchestration/reg/reg.xsd">
+
+    <description>Mybatis Connection Configure</description>
+    <!-- 自动扫描 -->
+    <!-- <context:annotation-config/> -->
+    <context:component-scan base-package="com.xiaomi.test.sharding" />
+    <!-- 引入配置文件 -->
+    <!-- aop实现动态数据源代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <bean id="traceHisDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="filters" value="stat" />
+        <property name="driverClassName" value="${driver}" />
+        <property name="url" value="${paps_t_db_url}" />
+        <property name="username" value="mipay" />
+        <property name="password" value="xingdata" />
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="100" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="false" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+        <!--重连-->
+        <property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+    </bean>
+
+    <sharding:standard-strategy id="traceTableRangeShardingAlgorithm" sharding-column="CUT_DATE"
+                                precise-algorithm-class="com.xiaomi.test.sharding.datasource.TraceTableShardingAlgorithm"
+                                range-algorithm-class="com.xiaomi.test.sharding.datasource.TraceTableRangeShardingAlgorithm"/>
+
+    <reg:zookeeper id="regCenter" server-lists="localhost:2181" namespace="sharding-jdbc-demo" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3"/>
+
+    <sharding:data-source id="shardingDataSource"  registry-center-ref="regCenter" overwrite="true">
+        <sharding:sharding-rule data-source-names="traceHisDataSource">
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="a_trace_his" actual-data-nodes="traceHisDataSource.a_trace_his_${0..3}"
+                table-strategy-ref="traceTableRangeShardingAlgorithm" generate-key-column="CUT_DATE" />
+            </sharding:table-rules>
+            <sharding:binding-table-rules>
+                <sharding:binding-table-rule logic-tables="a_trace_his"/>
+            </sharding:binding-table-rules>
+        </sharding:sharding-rule>
+        <sharding:props>
+            <prop key="sql.show">true</prop>
+        </sharding:props>
+    </sharding:data-source>
+
+    <!-- mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源 MyBatis定义数据源,同意加载配置 -->
+    <bean id="sqlSessionFactorySharding" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="shardingDataSource" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" >
+            <list>
+                <value>classpath*:com/xiaomi/test/sharding/mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.xiaomi.test.sharding.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactorySharding" />
+    </bean>
+
+    <!--事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源 -->
+    <bean id="txManagerSharding" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardingDataSource" />
+    </bean>
+
+   <!-- 5. 使用注解式事务 transaction-manager：引用上面定义的事务管理器 &ndash;&gt;-->
+    <tx:annotation-driven transaction-manager="txManagerSharding" order="2" />
+</beans>
