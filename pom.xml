@@ -8,7 +8,7 @@
   <name>shardingDemo Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <latest.release.version>2.0.0.M2</latest.release.version>
+    <latest.release.version>2.0.0.M3</latest.release.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <!-- Spring FrameWork -->
@@ -94,11 +94,11 @@
       <version>${latest.release.version}</version>
     </dependency>
 
-    <dependency>
+   <!-- <dependency>
       <groupId>io.shardingjdbc</groupId>
       <artifactId>sharding-jdbc-spring-namespace</artifactId>
       <version>${latest.release.version}</version>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>io.shardingjdbc</groupId>
@@ -344,6 +344,13 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.7.v20170914</version>
+      </plugin>
+
     </plugins>
     <resources>
       <resource>
